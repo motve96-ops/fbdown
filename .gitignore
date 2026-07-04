@@ -1,0 +1,6 @@
+node_modules/
+yt-dlp.exe
+*.log
+.env
+Dockerfile
+.dockerignore

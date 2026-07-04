@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FB Video Downloader – Tải Video Facebook Chất Lượng Cao</title>
+  <meta name="description" content="Tải video Facebook miễn phí với chất lượng HD. Dán link video Facebook và tải về ngay lập tức." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated Background Particles -->
+  <div class="bg-particles" id="bgParticles"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+          <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/>
+        </svg>
+      </div>
+      <span class="logo-text">FB<span class="logo-accent">Down</span></span>
+    </div>
+    <nav class="nav-links">
+      <a href="#how-to">Hướng dẫn</a>
+      <a href="#features">Tính năng</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Miễn phí · Không giới hạn · Chất lượng cao
+    </div>
+    <h1 class="hero-title">
+      Tải Video <span class="gradient-text">Facebook</span><br/>
+      Chỉ Trong Vài Giây
+    </h1>
+    <p class="hero-subtitle">
+      Dán link video Facebook vào ô bên dưới và tải về với chất lượng HD ngay lập tức.<br/>
+      Không cần đăng ký, hoàn toàn miễn phí.
+    </p>
+
+    <!-- Main Download Card -->
+    <div class="download-card" id="downloadCard">
+      <div class="card-inner">
+        <div class="input-group">
+          <div class="input-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="urlInput"
+            class="url-input"
+            placeholder="Dán link video Facebook vào đây... (vd: https://www.facebook.com/...)"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="clear-btn" id="clearBtn" onclick="clearInput()" title="Xóa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <button class="fetch-btn" id="fetchBtn" onclick="fetchVideo()">
+          <span class="btn-text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+            Lấy Video
+          </span>
+          <div class="btn-loader" id="btnLoader">
+            <div class="spinner"></div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-msg" id="errorMsg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="errorText">Đã xảy ra lỗi</span>
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-section" id="resultSection">
+      <div class="result-card">
+        <div class="result-header">
+          <div class="result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <polygon points="23 7 16 12 23 17 23 7"/>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+          </div>
+          <div class="result-info">
+            <h3 class="result-title" id="videoTitle">Video đã sẵn sàng để tải!</h3>
+            <p class="result-meta" id="videoMeta">Facebook Video</p>
+          </div>
+        </div>
+
+        <div class="thumbnail-wrapper" id="thumbnailWrapper" style="display:none">
+          <img id="videoThumbnail" src="" alt="Video thumbnail" class="video-thumbnail" />
+          <div class="play-overlay">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+              <circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.6)"/>
+              <polygon points="10 8 16 12 10 16 10 8" fill="white"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="download-options" id="downloadOptions">
+          <!-- Download buttons will be injected here -->
+        </div>
+
+        <button class="reset-btn" onclick="resetForm()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 .49-4.95"/>
+          </svg>
+          Tải video khác
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How To Section -->
+  <section class="info-section" id="how-to">
+    <div class="section-label">Hướng dẫn sử dụng</div>
+    <h2 class="section-title">Chỉ <span class="gradient-text">3 bước</span> đơn giản</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <h3>Sao chép link</h3>
+        <p>Mở Facebook, tìm video bạn muốn tải, nhấn vào "…" và chọn "Sao chép link"</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </div>
+        <h3>Dán vào ô nhập</h3>
+        <p>Dán link vào ô phía trên và nhấn nút "Lấy Video" màu tím</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+        <h3>Tải về</h3>
+        <p>Chọn chất lượng HD hoặc SD và nhấn "Tải về" để lưu video vào máy</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-label">Tính năng nổi bật</div>
+    <h2 class="section-title">Tại sao chọn <span class="gradient-text">FBDown</span>?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon feature-icon-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <h4>Chất lượng HD</h4>
+        <p>Tải video với chất lượng cao nhất có thể, giữ nguyên độ phân giải gốc</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon feature-icon-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h4>Nhanh chóng</h4>
+        <p>Xử lý link trong vài giây, không cần chờ đợi lâu</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon feature-icon-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h4>An toàn</h4>
+        <p>Không lưu trữ dữ liệu người dùng, bảo mật tuyệt đối</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon feature-icon-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h4>Miễn phí 100%</h4>
+        <p>Hoàn toàn miễn phí, không cần đăng ký tài khoản</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon feature-icon-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+        </div>
+        <h4>Mọi thiết bị</h4>
+        <p>Hoạt động tốt trên máy tính, điện thoại và máy tính bảng</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon feature-icon-6">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h4>Không giới hạn</h4>
+        <p>Tải bao nhiêu video tùy thích, không giới hạn số lượng</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+          <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/>
+        </svg>
+      </div>
+      <span>FB<span class="logo-accent">Down</span></span>
+    </div>
+    <p class="footer-note">Công cụ tải video Facebook miễn phí · Chỉ dùng cho mục đích cá nhân</p>
+    <p class="footer-copy">© 2026 FBDown. Không lưu trữ video. Không vi phạm bản quyền.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
