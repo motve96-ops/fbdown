@@ -4,3 +4,7 @@ yt-dlp.exe
 .env
 Dockerfile
 .dockerignore
+
+*.exe
+*.old
+cookies.txt
